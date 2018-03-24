@@ -11,6 +11,13 @@ html,body,h1,h2,h3,h4,h5,h6 {
   padding: 75px;
 }
 
+.verified {
+  background-color: lightgreen;
+}
+.error {
+  background-color: lightcoral;
+}
+
 .text-block {
   height: 90px;
   line-height: 90px;

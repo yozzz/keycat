@@ -7,12 +7,16 @@ import ReactDOM from 'react-dom'
 import { InputForm } from './input_form'
 import { GivenText } from './given_text'
 
-
 export class TypeTextModule extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      textLine: '',
+      textLine: {
+        verifiedSymbols: '',
+        errorSymbol: '',
+        errorInText: '',
+        skippedText: ''
+      },
       typedText: ''
     };
 
@@ -20,11 +24,11 @@ export class TypeTextModule extends React.Component {
   }
 
   handleInputTextChange(validatedTextLine) {
-    debugger
     this.setState({
       textLine: validatedTextLine
     });
   }
+
 
   render() {
     return (

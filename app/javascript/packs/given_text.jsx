@@ -4,20 +4,39 @@
 
 import React from 'react'
 
-const text = <span id='line1'>She was a good deal frightened by this very sudden change, but she felt that</span>
+const hiddenText = <div id='hidden-text' hidden>She was a good deal frightened by this very sudden change, but she felt that</div>
+const givenText = <div id='text'>She was a good deal frightened by this very sudden change, but she felt that</div>
 
 export class GivenText extends React.Component {
   constructor(props) {
     super(props);
+    // this.props = {
+    //   verifiedSymbols: props.validatedTextLine.verifiedSymbols,
+    //   errorSymbol: props.validatedTextLine.errorSymbol
+    // };
   }
+
 
   render() {
+    const verifiedSymbols = this.props.validatedTextLine.verifiedSymbols;
+    const errorSymbol = this.props.validatedTextLine.errorSymbol;
+    const errorInText = this.props.validatedTextLine.errorInText;
+    const skippedText = this.props.validatedTextLine.skippedText;
     return (
-      <div id='text'>{this.props.textLine}</div>
+      <div>
+        { verifiedSymbols ? (
+          <div id='text'>
+            <span className="verified">{verifiedSymbols}</span>
+            <span className="error">{errorInText}</span>
+            <span className="skipped">{skippedText}</span>
+          </div>
+        ) : givenText }
+        { hiddenText }
+      </div>
     );
   }
-
 }
 GivenText.defaultProps = {
-  textLine: text
+  verifiedSymbols: '',
+  errorSymbol: ''
 };

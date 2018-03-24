@@ -8,21 +8,22 @@ import { TextComparator } from './text_comparator';
 export class InputForm extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {inputValue: ''};
 
-    this.state = {value: ''};
     this.handleInputTextChange = this.handleInputTextChange.bind(this)
   }
 
   handleInputTextChange(e) {
-    let validated_text_line = TextComparator(e.target.value);
-    this.props.onInputChange(validated_text_line)
+    let validatedTextLine = TextComparator(e.target.value);
+    this.state.inputValue = e.target.value;
+    this.props.onInputChange(validatedTextLine)
   }
 
   render() {
     return(
       <div id='input-text'>
         <form className='input-form'>
-          <input className='input-text' value={this.props.typedText} onChange={this.handleInputTextChange}/>
+          <input className='input-text' value={this.state.inputValue} onChange={this.handleInputTextChange}/>
         </form>
       </div>
     )
