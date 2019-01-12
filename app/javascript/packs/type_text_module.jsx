@@ -1,7 +1,3 @@
-// Run this example by adding <%= javascript_pack_tag 'hello_react' %> to the head of your layout file,
-// like app/views/layouts/application.html.erb. All it does is render <div>Hello React</div> at the bottom
-// of the page.
-
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { InputForm } from './input_form'
@@ -13,11 +9,14 @@ export class TypeTextModule extends React.Component {
     this.state = {
       textLine: {
         verifiedSymbols: '',
-        errorSymbol: '',
         errorInText: '',
-        skippedText: ''
+        skippedText: '',
+        givenText: props.givenText,
+        hiddenText: props.givenText
       },
-      typedText: ''
+      typedText: '',
+      lineLength: props.lineLength,
+      textIndex: props.textIndex
     };
 
     this.handleInputTextChange = this.handleInputTextChange.bind(this)
@@ -25,10 +24,17 @@ export class TypeTextModule extends React.Component {
 
   handleInputTextChange(validatedTextLine) {
     this.setState({
-      textLine: validatedTextLine
+      textLine: {
+        verifiedSymbols: validatedTextLine.verifiedSymbols,
+        errorInText: validatedTextLine.errorInText,
+        skippedText: validatedTextLine.skippedText,
+        givenText: validatedTextLine.givenText,
+        hiddenText: validatedTextLine.hiddenText
+      },
+      lineLength: validatedTextLine.lineLength,
+      textIndex: validatedTextLine.textIndex
     });
   }
-
 
   render() {
     return (
@@ -36,6 +42,8 @@ export class TypeTextModule extends React.Component {
         <InputForm
           typedText={this.state.typedText}
           onInputChange={this.handleInputTextChange}
+          lineLength={this.state.lineLength}
+          textIndex={this.state.textIndex}
         />
         <GivenText
           validatedTextLine={this.state.textLine}
@@ -46,7 +54,15 @@ export class TypeTextModule extends React.Component {
 
 }
 
-ReactDOM.render(
-  <TypeTextModule />,
-  document.getElementById('text-block')
-);
+document.addEventListener('DOMContentLoaded', () => {
+  const node = document.getElementById('block-data');
+  const data = JSON.parse(node.getAttribute('data'));
+
+  ReactDOM.render(
+    <TypeTextModule {...data}/>,
+    document.getElementById('text-block')
+  );
+});
+
+
+

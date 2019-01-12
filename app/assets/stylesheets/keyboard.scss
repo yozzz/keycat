@@ -29,7 +29,7 @@ html,body,h1,h2,h3,h4,h5,h6 {
   }
 
   .input-text {
-    width: 600px;
+    width: 650px;
     height: 20px;
     font-size: 16px;
     vertical-align: middle;
@@ -41,8 +41,13 @@ html,body,h1,h2,h3,h4,h5,h6 {
     display: inline-block;
     font-family: DejaVu Sans Mono, Menlo, Lucida Console, monospace;
     line-height: normal;
+    text-align: left;
     vertical-align: middle;
     width: 600px;
+  }
+
+  #hidden-text {
+    display: none;
   }
 
 }
