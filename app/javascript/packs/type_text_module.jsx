@@ -15,14 +15,15 @@ export class TypeTextModule extends React.Component {
         hiddenText: props.givenText
       },
       typedText: '',
-      lineLength: props.lineLength,
       textIndex: props.textIndex
+      // lineLength: props.lineLength
     };
 
     this.handleInputTextChange = this.handleInputTextChange.bind(this)
   }
 
   handleInputTextChange(validatedTextLine) {
+    // debugger
     this.setState({
       textLine: {
         verifiedSymbols: validatedTextLine.verifiedSymbols,

@@ -4,11 +4,11 @@ export class GivenText extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      givenText: props.validatedTextLine.givenText,
+      givenText: GivenText.mapText(props.validatedTextLine.givenText),
       verifiedSymbols: props.validatedTextLine.verifiedSymbols,
       errorInText: props.validatedTextLine.errorInText,
       skippedText: props.validatedTextLine.skippedText,
-      hiddenText: props.validatedTextLine.hiddenText
+      hiddenText: GivenText.mapText(props.validatedTextLine.givenText)
     }
   }
   componentWillReceiveProps(nextProps) {
@@ -23,27 +23,38 @@ export class GivenText extends React.Component {
     }
   }
 
+  static mapText(givenText) {
+    return (givenText.map((text, index) =>
+      <div key={index} data-line-length={text.lineLength}>{text.line}</div>)
+    )
+  }
+
   render() {
-    var verifiedSymbols = this.state.verifiedSymbols;
+    let verifiedSymbols = this.state.verifiedSymbols;
+    let errorInText = this.state.errorInText;
+    let textBlock;
+    if (verifiedSymbols) {
+      textBlock = (
+        <div id='text'>
+          <span className="verified">{this.state.verifiedSymbols}</span>
+          <span className="error">{this.state.errorInText}</span>
+          <span className="skipped">{this.state.skippedText}</span>
+        </div>)
+    } else if (errorInText) {
+      textBlock =  (
+        <div id='text'>
+          <span className="error">{this.state.errorInText}</span>
+          <span className="skipped">{this.state.skippedText}</span>
+        </div>)
+    } else {
+      textBlock = <div id='text'>{this.state.givenText}</div>;
+    }
     return (
       <div>
-
-        { verifiedSymbols ?
-          (
-          <div id='text'>
-            <span className="verified">{this.state.verifiedSymbols}</span>
-            <span className="error">{this.state.errorInText}</span>
-            <span className="skipped">{this.state.skippedText}</span>
-          </div>
-        ) : <div id='text'>{this.state.givenText}</div> }
+        { textBlock }
         { <div id='hidden-text'>{this.state.hiddenText}</div> }
       </div>
     );
   }
 
 }
-
-// GivenText.defaultProps = {
-//   verifiedSymbols: '',
-//   errorSymbol: ''
-// };

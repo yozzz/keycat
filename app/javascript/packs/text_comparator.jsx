@@ -13,12 +13,16 @@ export function TextComparator(input_text) {
       hiddenText: givenText
     }
   }
-  
+
   for(const [i, value] of inputTextSymbols.entries()) {
     if (givenText[i] === value ) {
       verifiedSymbols.push(value)
     } else {
-      errorSymbol = value;
+      if (i === 0) {
+        errorSymbol = givenText[0]
+      } else {
+        errorSymbol = value;
+      }
       errorInText = givenText[i];
       break;
     }
@@ -33,6 +37,7 @@ export function TextComparator(input_text) {
       hiddenText: givenText
     }
   } else {
+    // if (verifiedSymbols.length < )
     return {
       verifiedSymbols: verifiedSymbols.join(''),
       skippedText: givenText.substring(verifiedSymbols.length, givenText.length),
